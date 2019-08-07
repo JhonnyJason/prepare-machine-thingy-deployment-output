@@ -58,11 +58,43 @@ $ prepare-machine-thingy-deployment --help
 
 ```
 
+machine-config
+-----
+
+To be interpreted correctly the machine-config file must meet following requirements.
+
+It must export an object as follows:
+```javascript
+module.exports = {
+    ipAddress = "7.4.7.6",
+    name = "exampleMachineName",
+    webhookSecret = "supersecretsecret",
+    webhookPort = 4567,
+    thingies = [...]
+}
+```
+Furtherly For each thingy to deploy we have an object in the array.
+While the detailed specification what you need in your machine-config might vary strongly it is required to contain the repository name of the deployable thingy part. Plus for now - it has to be owned by your user on github.
+```javascript
+{
+    repository: "example-machine-1-output",
+    ...
+}
+```
+
+Result
+-----
+This will produce an active webhook of type `application/json` to `http://7.4.7.6:4567/webhook` which is triggered on `push` events.
+
+Also it will create new ssh-keys in OpenSSH format [RFC 4253](https://tools.ietf.org/html/rfc4253#section-6.6) (actually uses openssh over the node-keygen package). The key pairs will be stored in the given `keysDirectory` and the public key will be added as `read_only` deploy key. The title of the deploy key is the used `name` property of the machine-config object.
+
+Notice: It is thought to have 1 deployment for one repository on a certain machine. Thus the deploy keys are identifiable by their titles. Donot use a machine name multiple times!
 
 # Further steps
 This tool will be furtherly extended, mainly to fit my own needs.
 Ideas of what could come next:
 
+- add meaningful diagnosis on errors (404 etc.)
 - add support for not-github systems
 
 All sorts of inputs are welcome, thanks!
