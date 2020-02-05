@@ -3,6 +3,11 @@
 # Why?
 The toolset for the machine thingy requires such a tool.
 
+More generally we need a tool which communicates to our cloudservices that:
+
+- it triggers a webhook on push of a specified repository to a specified url
+- it knows read-only deployment keys to hand out new updates to the machine
+
 # What?
 prepare-machine-thingy-deployment - specificly for a machine config thingy, it consists of a set of thingies which are to be deployed on the certain machine. For the deployment to be ready to go we need to set up the webhooks and deployment keys for each of the those thingies for which the machine thingy is configured for.
 

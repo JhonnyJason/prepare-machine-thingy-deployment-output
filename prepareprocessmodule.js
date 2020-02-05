@@ -9,16 +9,7 @@
   //region node_modules
   fs = require("fs");
 
-  //endregion
-
-  //log Switch
-  log = function(arg) {
-    if (allModules.debugmodule.modulesToDebug["prepareprocessmodule"] != null) {
-      console.log("[prepareprocessmodule]: " + arg);
-    }
-  };
-
-  //region internal variables
+  //region localModules
   cfg = null;
 
   github = null;
@@ -28,14 +19,24 @@
   pathHandler = null;
 
   //endregion
+  //endregion
 
-  //#initialization function  -> is automatically being called!  ONLY RELY ON DOM AND VARIABLES!! NO PLUGINS NO OHTER INITIALIZATIONS!!
+  //region logPrintFunctions
+  //#############################################################################
+  log = function(arg) {
+    if (allModules.debugmodule.modulesToDebug["prepareprocessmodule"] != null) {
+      console.log("[prepareprocessmodule]: " + arg);
+    }
+  };
+
+  //endregion
+  //#############################################################################
   prepareprocessmodule.initialize = function() {
     log("prepareprocessmodule.initialize");
     cfg = allModules.configmodule;
     github = allModules.githubhandlermodule;
     deploymentHandler = allModules.deploymenthandlermodule;
-    return pathHandler = allModules.pathhandlermodule;
+    pathHandler = allModules.pathhandlermodule;
   };
 
   //region internal functions
@@ -60,12 +61,15 @@
 
   //endregion
 
-  //region exposed functions
+  //region exposedFunctions
   prepareprocessmodule.execute = async function(keysDirectory, configPath, mode) {
     log("prepareprocessmodule.execute");
+    await cfg.checkUserConfig();
     await pathHandler.setKeysDirectory(keysDirectory);
     await pathHandler.setConfigFilePath(configPath);
     await digestConfigFile();
+    throw "death on Purpose";
+    //# old code
     await github.buildConnection();
     switch (mode) {
       case "prepare":
@@ -77,7 +81,6 @@
       case "remove":
         await deploymentHandler.removeDeployments();
     }
-    return true;
   };
 
   //endregion

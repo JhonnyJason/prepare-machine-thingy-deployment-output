@@ -6,27 +6,32 @@
     name: "debugmodule"
   };
 
-  //#initialization function  -> is automatically being called!  ONLY RELY ON DOM AND VARIABLES!! NO PLUGINS NO OHTER INITIALIZATIONS!!
+  //#############################################################################
   debugmodule.initialize = function() {
     return;
     return console.log("debugmodule.initialize - nothing to do");
   };
 
+  //#############################################################################
   debugmodule.modulesToDebug = {
-    unbreaker: true
+    unbreaker: true,
+    // cliargumentsmodule: true
+    // cloudservicemodule: true
+    configmodule: true,
+    // deploymenthandlermodule: true
+    // encryptionmodule: true
+    // githubhandlermodule: true
+    // globalscopemodule
+    // keymodule: true
+    // pathhandlermodule: true
+    // prepareprocessmodule: true
+    // startupmodule: true
+    // useractionmodule: true
+    userconfigmodule: true
   };
 
-  // cliargumentsmodule: true
-  // configmodule: true
-  // deploymenthandlermodule: true
-  // githubhandlermodule: true
-  // keymodule: true
-  // pathhandlermodule: true
-  // prepareprocessmodule: true
-  // startupmodule: true
+  // userinquirermodule: true
   // utilmodule: true
-
-  //region exposed variables
   module.exports = debugmodule;
 
 }).call(this);
