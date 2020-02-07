@@ -6,9 +6,22 @@
     name: "prepareprocessmodule"
   };
 
-  //region node_modules
+  //###########################################################
+  //region logPrintFunctions
+  log = function(arg) {
+    if (allModules.debugmodule.modulesToDebug["prepareprocessmodule"] != null) {
+      console.log("[prepareprocessmodule]: " + arg);
+    }
+  };
+
+  //endregion
+
+  //###########################################################
+  //region modulesFromEnvironment
+  //###########################################################
   fs = require("fs");
 
+  //###########################################################
   //region localModules
   cfg = null;
 
@@ -21,16 +34,7 @@
   //endregion
   //endregion
 
-  //region logPrintFunctions
-  //#############################################################################
-  log = function(arg) {
-    if (allModules.debugmodule.modulesToDebug["prepareprocessmodule"] != null) {
-      console.log("[prepareprocessmodule]: " + arg);
-    }
-  };
-
-  //endregion
-  //#############################################################################
+  //###########################################################
   prepareprocessmodule.initialize = function() {
     log("prepareprocessmodule.initialize");
     cfg = allModules.configmodule;
@@ -39,7 +43,8 @@
     pathHandler = allModules.pathhandlermodule;
   };
 
-  //region internal functions
+  //###########################################################
+  //region internalFunctions
   digestConfigFile = function() {
     var config, i, len, ref, requirePath, results, thingy;
     log("digestRepoListFile");
@@ -61,11 +66,10 @@
 
   //endregion
 
+  //###########################################################
   //region exposedFunctions
   prepareprocessmodule.execute = async function(keysDirectory, configPath, mode) {
     log("prepareprocessmodule.execute");
-    pathHandler.experiment();
-    throw "death on Purpose";
     await cfg.checkUserConfig();
     await pathHandler.setKeysDirectory(keysDirectory);
     await pathHandler.setConfigFilePath(configPath);
