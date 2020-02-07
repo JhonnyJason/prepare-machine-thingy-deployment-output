@@ -7,14 +7,11 @@
   };
 
   //###########################################################
-  //region logPrintFunctions
   log = function(arg) {
     if (allModules.debugmodule.modulesToDebug["prepareprocessmodule"] != null) {
       console.log("[prepareprocessmodule]: " + arg);
     }
   };
-
-  //endregion
 
   //###########################################################
   //region modulesFromEnvironment
@@ -74,9 +71,6 @@
     await pathHandler.setKeysDirectory(keysDirectory);
     await pathHandler.setConfigFilePath(configPath);
     await digestConfigFile();
-    throw "death on Purpose";
-    //# old code
-    await github.buildConnection();
     switch (mode) {
       case "prepare":
         await deploymentHandler.prepareMissingDeployments();

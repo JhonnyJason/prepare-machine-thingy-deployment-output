@@ -6,29 +6,23 @@
     name: "cliargumentsmodule"
   };
 
-  //region node_modules
-  meow = require('meow');
-
-  // minimistOptions = require("minimist-options")
-  //endregion
-
-  //log Switch
+  //###########################################################
   log = function(arg) {
     if (allModules.debugmodule.modulesToDebug["cliargumentsmodule"] != null) {
       console.log("[cliargumentsmodule]: " + arg);
     }
   };
 
-  //region internal variables
+  //###########################################################
+  meow = require('meow');
 
-  //endregion
-
-  //#initialization function  -> is automatically being called!  ONLY RELY ON DOM AND VARIABLES!! NO PLUGINS NO OHTER INITIALIZATIONS!!
+  //###########################################################
   cliargumentsmodule.initialize = function() {
     return log("cliargumentsmodule.initialize");
   };
 
-  //region internal functions
+  //###########################################################
+  //region internalFunctions
   getHelpText = function() {
     log("getHelpText");
     return `Usage
@@ -68,13 +62,13 @@ Examples
         },
         mode: {
           type: "string",
-          alias: "m",
-          default: "prepare"
+          alias: "m"
         }
       }
     };
   };
 
+  //###########################################################
   extractMeowed = function(meowed) {
     var keysDirectory, machineConfig, mode;
     log("extractMeowed");
@@ -123,7 +117,7 @@ Examples
 
   //endregion
 
-  //region exposed functions
+  //###########################################################
   cliargumentsmodule.extractArguments = function() {
     var extract, meowed, options;
     log("cliargumentsmodule.extractArguments");
@@ -134,7 +128,6 @@ Examples
     return extract;
   };
 
-  //endregion exposed functions
   module.exports = cliargumentsmodule;
 
 }).call(this);
