@@ -200,7 +200,7 @@
   };
 
   //###########################################################
-  //region repositoryManipulation
+  //region repoManipulation
   createRepository = async function(service, repo, visible) {
     var octokit, options;
     log("createRepository");
