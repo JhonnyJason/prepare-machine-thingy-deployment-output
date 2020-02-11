@@ -1,40 +1,46 @@
-# prepare-machine-thingy-deployment - Small cli to prepare deployments on a server machine. Webhooks and deployment keys for github.
+# prepare-machine-thingy-deployment - Small cli to prepare deployments for a machine - the webhooks and deployKeys.
 
 # Why?
 The toolset for the machine thingy requires such a tool.
 
 More generally we need a tool which communicates to our cloudservices that:
 
-- it triggers a webhook on push of a specified repository to a specified url
-- it knows read-only deployment keys to hand out new updates to the machine
+- it will trigger a webhook on a push event to a specified repository
+- it knows read-only deployment keys to hand out the updates
 
 # What?
-prepare-machine-thingy-deployment - specificly for a machine config thingy, it consists of a set of thingies which are to be deployed on the certain machine. For the deployment to be ready to go we need to set up the webhooks and deployment keys for each of the those thingies for which the machine thingy is configured for.
+prepare-machine-thingy-deployment - is a small cli tool, which takes advantage of the way how cloudservices are handled by [thingycreate](https://www.npmjs.com/package/thingycreate). It uses this access to add or remove the relevant webhooks or deployment keys.
+
+Therefore it takes a configuration file `.json` to read out the relevant parameters. It is mainly built having the configuration file of a `machine-thingy` in mind - which also takes care of an installer to set up the machine itself.
+
+However it is independently usable.
 
 # How?
 Requirements
 ------------
-* [GitHub account](https://github.com/)
-* [openssh installed](https://www.openssh.com/)
+* [GitHub account](https://github.com/) and/or [Gitlab account](https://gitlab.com/)
+* [GitHub ssh-key access](https://help.github.com/en/github/authenticating-to-github/generating-a-new-ssh-key-and-adding-it-to-the-ssh-agent) and/or [Gitlab ssh-key-access](https://docs.gitlab.com/ee/gitlab-basics/create-your-ssh-keys.html)
+* [GitHub access token (repo scope)](https://github.com/settings/tokens) and/or [Gitlab access token (api scope)](https://docs.gitlab.com/ee/user/profile/personal_access_tokens.html)
+* [Git installed](https://git-scm.com/)
 * [Node.js installed](https://nodejs.org/)
+* [Npm installed](https://www.npmjs.com/)
+* [OpenSSH installed](https://www.openssh.com/)
 
 Installation
 ------------
 
-Current git version
-``` sh
-$ npm install git+https://github.com/JhonnyJason/prepare-machine-thingy-deployment-output.git
-```
 Npm Registry
 ``` sh
 $ npm install prepare-machine-thingy-deployment
 ```
 
+Current git version
+``` sh
+$ npm install git+https://github.com/JhonnyJason/prepare-machine-thingy-deployment-output.git
+```
 
 Usage
 -----
-
-Small cli to prepare deployments on a server machine. Webhooks and deployment keys for github.
 
 ```
 $ prepare-machine-thingy-deployment --help
@@ -63,7 +69,7 @@ $ prepare-machine-thingy-deployment --help
 
 ```
 
-machine-config
+machineConfig
 -----
 
 To be interpreted correctly the machine-config file must meet following requirements.
@@ -79,7 +85,9 @@ module.exports = {
 }
 ```
 Furtherly For each thingy to deploy we have an object in the array.
-While the detailed specification what you need in your machine-config might vary strongly it is required to contain the repository name of the deployable thingy part. Plus for now - it has to be owned by your user on github.
+While the detailed specification what you need in your machine-config might vary strongly it is required to contain the repository name of the deployable thingy part. 
+
+**Plus - for now - it has to be owned by your user!**
 ```javascript
 {
     repository: "example-machine-1-output",
@@ -89,18 +97,20 @@ While the detailed specification what you need in your machine-config might vary
 
 Result
 -----
-This will produce an active webhook of type `application/json` to `http://7.4.7.6:4567/webhook` which is triggered on `push` events.
+This will produce an active webhook of type `application/json` to `http://7.4.7.6:4567/webhook` which is triggered on push events.
 
-Also it will create new ssh-keys in OpenSSH format [RFC 4253](https://tools.ietf.org/html/rfc4253#section-6.6) (actually uses openssh over the node-keygen package). The key pairs will be stored in the given `keysDirectory` and the public key will be added as `read_only` deploy key. The title of the deploy key is the used `name` property of the machine-config object.
+Also it will create new ssh-keys in OpenSSH format [RFC 4253](https://tools.ietf.org/html/rfc4253#section-6.6) (actually uses openssh over the node-keygen package^^). The key pairs will be stored in the given `keysDirectory` and the public key will be added as `read_only` deploy key.
 
-Notice: It is thought to have 1 deployment for one repository on a certain machine. Thus the deploy keys are identifiable by their titles. Donot use a machine name multiple times!
+The title of the deploy key is the used `name` property of the machine-config object.
+
+*Notice: It is thought to have 1 deployment for one repository on a certain machine. Thus the deploy keys are identifiable by their titles. Donot use a machine name multiple times!*
 
 # Further steps
 This tool will be furtherly extended, mainly to fit my own needs.
 Ideas of what could come next:
 
 - add meaningful diagnosis on errors (404 etc.)
-- add support for not-github systems
+- ...
 
 All sorts of inputs are welcome, thanks!
 
@@ -114,9 +124,9 @@ All sorts of inputs are welcome, thanks!
 - Information only has memory to reside in and relations to be meaningful.
 - Information cannot be stolen. Only shared or destroyed.
 
-And you whish it has been shared before it is destroyed.
+And you wish it has been shared before it is destroyed.
 
-The one claiming copyright or intellectual property either is really evil or probably has some insecurity issues which makes him blind to the fact that he also just connected information which was free available to him.
+The one claiming copyright or intellectual property either is really evil or probably has some insecurity issues which makes him blind to the fact that he also just connected information which was freely available to him.
 
 The value is not in him who "created" the information the value is what is being done with the information.
 So the restriction and friction of the informations' usage is exclusively reducing value overall.
