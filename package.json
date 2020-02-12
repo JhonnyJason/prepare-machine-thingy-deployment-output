@@ -1,6 +1,6 @@
 {
   "name": "prepare-machine-thingy-deployment",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "Small cli to prepare deployments on a server machine. Webhooks and deployment keys for github.",
   "main": "index.js",
   "scripts": {

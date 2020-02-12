@@ -14,13 +14,13 @@
 
   //###########################################################
   debugmodule.modulesToDebug = {
-    unbreaker: true,
-    // cliargumentsmodule: true
-    cloudservicemodule: true,
-    // configmodule: true
-    deploymenthandlermodule: true
+    unbreaker: true
   };
 
+  // cliargumentsmodule: true
+  // cloudservicemodule: true
+  // configmodule: true
+  // deploymenthandlermodule: true
   // encryptionmodule: true
   // globalscopemodule
   // keymodule: true
