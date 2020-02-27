@@ -16,7 +16,7 @@
   //endregion
 
   //region exposedProperties
-  configmodule.ipAddress = "0.0.0.0";
+  configmodule.serverName = "default.server.tld";
 
   configmodule.name = "defaultName";
 
@@ -80,8 +80,8 @@
   //region exposedFunctions
   configmodule.generateURL = function() {
     log("configmodule.genURL");
-    configmodule.webhookURL = "http://";
-    configmodule.webhookURL += configmodule.ipAddress;
+    configmodule.webhookURL = "https://";
+    configmodule.webhookURL += configmodule.serverName;
     configmodule.webhookURL += ":";
     configmodule.webhookURL += configmodule.webhookPort;
     return configmodule.webhookURL += "/webhook";
