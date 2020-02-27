@@ -77,7 +77,7 @@ To be interpreted correctly the machine-config file must meet following requirem
 It must export an object as follows:
 ```javascript
 module.exports = {
-    ipAddress = "7.4.7.6",
+    serverName = "example.webhook-handler.com",
     name = "exampleMachineName",
     webhookSecret = "supersecretsecret",
     webhookPort = 4567,
