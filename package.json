@@ -1,6 +1,6 @@
 {
     "name": "prepare-machine-thingy-deployment",
-    "version": "0.1.4",
+    "version": "0.1.5",
     "description": "Small cli to prepare deployments on a server machine. Webhooks and deployment keys for github.",
     "main": "index.js",
     "scripts": {
@@ -30,7 +30,7 @@
         "prepare-machine-thingy-deployment": "./index.js"
     },
     "dependencies": {
-        "@octokit/rest": "^17.1.1",
+        "@octokit/rest": "^17.1.2",
         "chalk": "^3.0.0",
         "clui": "^0.3.6",
         "fs-extra": "^9.0.0",
